@@ -19,12 +19,12 @@ def search(request):
             question_name = request.POST['question_name']
             question_name_exclude = request.POST['question_name_exclude']
             question_field = request.POST['question_field']
-            #question_field_exclude= request.POST['question_field_exclude']
+            # option to select "OR" relationship instead of the default "AND" relationship
             answer_bool = request.POST.get('answer_bool', False)
             answer_field = request.POST['answer_field']
+            # option to select "OR" relationship instead of the default "AND" relationship
             solution_bool = request.POST.get('solution_bool', False)
             solution_field = request.POST['solution_field']
-            #testing = request.POST['testing']
             # process book codes
             book_code = book_code.replace(" ","")
             book_code_list = book_code.split(",")
@@ -38,6 +38,7 @@ def search(request):
                     return HttpResponse('Invalid book code')
             # construct query
             questions = view_query.query(book_obj_list, chapter, mode, question_name, question_name_exclude, question_field, answer_bool, answer_field, solution_bool, solution_field)
+            # execute query string
             questions_eval = eval(questions)
             question = [q.code for q in questions_eval]
             count = len(question)

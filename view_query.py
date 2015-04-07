@@ -2,6 +2,7 @@ from search.models import Textbooks, Questions
 from django.db.models import Q
 import re
 
+# function to construct query string based on user input, Q object is used to construct "AND" and "OR" relationships
 def query(book_obj_list, chapter, mode, question_name, question_name_exclude, question_field, answer_bool, answer_field, solution_bool, solution_field):
     query_string = ''
     num_book = len(book_obj_list)
@@ -38,14 +39,12 @@ def query(book_obj_list, chapter, mode, question_name, question_name_exclude, qu
         query_string += ')'
         if question_name_exclude:
             query_string += '.exclude(code__icontains=question_name_exclude)'
-        #if question_field_exclude:
-        #    query_string += '.exclude(question__icontains=question_field_exclude)'
     else:
         query_string += ')'
     query_string += '.order_by("code")'
     return query_string
-    #return eval(query_string)
 
+# fuction to parse userinput to support AND, OR, AND-NOT, OR-NOT in the question, answer, and solution field
 def field_parser(usr_input, field):
     string = str(usr_input)
     enter_field = field+'__icontains'
