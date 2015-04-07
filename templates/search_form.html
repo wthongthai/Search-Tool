@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<style type="text/css">
+table {
+    vertical-align: text-top;
+    border-spacing: 5px;
+    padding: 5px;
+}
+
+#status {
+    font-size: 10px;
+    vertical-align: top;
+    color: gray;
+}
+
+.field {
+    height: 75px;
+}
+</style>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <h3>Question Search Tool <span id="status">ALPHA</span></h3>
+    <form action="" method="POST">
+        <em>**a required field, multiple books must be separated by commas</em>
+        <table>
+            <tr>
+                <td>Book Code**:</td>
+                <td>{{ form.book_code }} {{ form.book_code.errors}}</td>
+            </tr>
+            <tr>
+                <td>Chapter:</td>
+                <td>{{ form.chapter }} {{ form.chapter.errors }} </td>
+            </tr>
+            <tr>
+                <td>Mode:</td>
+                <td>{{ form.mode }} {{ form.mode.errors }} (work best with one mode, entering multiple mode, i.e. NQ, will return questions that have those two modes in sequence) </td>
+            </tr>
+        </table><br>
+        Notes for fields with *:
+        <ul>
+            <li>search terms are not case sensitive</li>
+            <li>spaces around search terms are literal, i.e. "no" will match "now" and "snow" while " no " will match "no"</li>
+            <li>multiple search terms can be query by separating the search terms with {AND}, {OR}, {ANOT} (and-not), and {ONOT} (or-not)</li>
+            <li>the default relationship between the three fields are "AND", check the "OR" box to change the relationship</li>
+            <li>double quotes (") MUST be escaped, i.e. \"Bombs away!\" </li>
+        </ul>
+        <br>
+        Question Name*<br>
+        {{ form.question_name }} {{ form.question_name.errors }} exclude {{ form.question_name_exclude }} {{ form.question_name_exclude.errors }}<br>
+        <br>
+        Question Field*<br>
+        {{ form.question_field }} {{ form.question_field.errors }}<br>
+        <br>
+        ({{ form.answer_bool }} {{ form.answer_bool.errors }} OR)
+        Answer Field*<br>
+        {{ form.answer_field }} {{ form.answer_field.errors }}<br>
+        <br>
+        ({{ form.solution_bool }} {{ form.solution_bool.errors }} OR)
+        Solution Field*<br>
+        {{ form.solution_field }}{{ form.solution_field.errors }}<br>
+        <br>
+        {% csrf_token %}
+        <input type="submit" value="search">
+    </form>
+</body>
+</html>

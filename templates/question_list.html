@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+<h3>List of Questions from: {{ book }}</h3>
+<!--
+<p>
+{{ question }}
+</p>
+-->
+Query: {{ query_string }} <br>
+<br>
+Found {{ count }} questions
+<ul style='list-style: none;'>
+{% for q in question %}
+    <li>{{ q }}</li>
+{% endfor %}
+</ul>
+
+</body>
+
+</html>
